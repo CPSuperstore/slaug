@@ -4,7 +4,7 @@ import time
 from slackclient import SlackClient
 
 
-TOKEN = 'xoxb-521802758465-632188884182-scJB6whMCxjvFkHQs59zgYNS'
+TOKEN = open("TOKEN.txt").read()
 sc = SlackClient(TOKEN)
 
 def run():
@@ -26,6 +26,6 @@ def run():
                         continue
 
                     print(event)
-                    
+
     # check every 1/2 s to not overload slack too much.
     time.sleep(0.5)
