@@ -1,11 +1,9 @@
-# pip3 install slackclient==2.0.0
-# pip3 install websocket-client
 import time
-from slackclient import SlackClient
 
+from source.event_handler import on_message_receive
+from source.gv import sc
+from source.objects.Message import Message
 
-TOKEN = open("TOKEN.txt").read()
-sc = SlackClient(TOKEN)
 
 def run():
     # do some stuff that I don't know, but the docs say to do
@@ -24,8 +22,8 @@ def run():
                     # and is triggered by the message it has sent, causing an infinite loop.
                     if "subtype" in event and event["subtype"] == "bot_message":
                         continue
-
-                    print(event)
+                    event = Message(event)
+                    on_message_receive(event)
 
     # check every 1/2 s to not overload slack too much.
     time.sleep(0.5)
